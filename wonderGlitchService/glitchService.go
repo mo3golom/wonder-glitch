@@ -11,7 +11,6 @@ type GlitchService struct {
 	dest    image.Image
 	factor  float64
 	handler *Handler
-	time    float64
 }
 
 func NewGlitchService(handler *Handler) *GlitchService {
@@ -31,10 +30,6 @@ func (gs *GlitchService) SetFactor(factor float64) *GlitchService {
 	gs.factor = factor
 
 	return gs
-}
-
-func (gs *GlitchService) SetTime(time float64) {
-	gs.time = time
 }
 
 func (gs *GlitchService) AddEffect(effectType wonderGlitchDTO.EffectType) *GlitchService {
@@ -58,10 +53,8 @@ func (gs *GlitchService) Glitchify(inputEffects []wonderGlitchDTO.InputEffect) *
 	draw.Draw(result, bounds, gs.dest, bounds.Min, draw.Src)
 
 	for _, effect := range inputEffects {
-		 gs.handler.Handle(&effect, output, int(gs.factor))
+		gs.handler.Handle(&effect, output, int(gs.factor))
 	}
 
 	return output
 }
-
-
